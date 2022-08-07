@@ -1,0 +1,65 @@
+CREAR  BASE DE DATOS  SWD ;
+utilizar SWD;
+
+-- CREACIÓN DE LAS TABLAS
+DROP  TABLE Empleados, Puesto, asistencia, Sueldos;
+
+crear  tabla ` SWD` . ` Empleados ` (ID INT  NOT NULL auto_increment,
+								Nombre varchar ( 100 ) NOT NULL ,
+                                Telefono INT  NO NULO ,
+                                Dirección varchar ( 250 ),
+                                DPI INT  NO NULO ,
+clave principal ( ` ID ` ));
+
+crear  tabla ` SWD` . ` Puesto ` ( ID INT  NO NULL auto_incremento,
+								Puesto varchar ( 75 ),
+                                ID_Empleado INT ,
+                                Horario varchar ( 30 ),
+clave principal ( ` ID ` ));
+
+crear  tabla ` SWD` . ` asistencia ` (ID INT  NOT NULL auto_increment,
+								Hora_de_entrada datetime not null ,
+                                ID_Empleado INT  NO NULO ,
+                                Hora_de_Salida datetime not null ,
+clave principal ( ` ID ` ));
+
+crear  tabla ` SWD` . ` Sueldos ` (ID INT  NOT NULL auto_increment,
+								ID_Puesto INT ,
+                                Sueldo_por_hora varchar ( 25 ) NOT NULL ,                                
+clave principal ( ` ID ` ));
+
+-- OBSERVANDO LAS TABLAS
+
+mostrar tablas en swd;
+
+-- relacion entre tablas
+
+	ALTERAR  TABLA  ` swd` . _ ` asistencia ` 
+	AGREGAR INDICE ` empleados_Asistencia_idx` ( ` ID_Empleado` ASC  ) VISIBLE ;
+;
+	ALTERAR  TABLA  ` swd` . _ ` asistencia ` 
+	AGREGAR RESTRICCIÓN  ` empleados_Asistencia` _
+		CLAVE EXTRANJERA ( ` ID_Empleado ` )
+		REFERENCIAS  ` swd` . _ ` empleados` ( ` ID ` ) _
+		EN ELIMINAR SIN ACCIÓN
+		EN CASCADA DE  ACTUALIZACIÓN ;
+-- ------------------------------------------------ -------------------------        
+	ALTERAR  TABLA  ` swd` . _ ` puesto `
+    AGREGAR INDICE ` Empleados_Puesto_idx ` ( ` ID_Empleado `  ASC ) VISIBLE;
+    ;
+    ALTERAR  TABLA  ` swd` . _ ` puesto `
+    agregar restricción  ` Empleados_Puesto `
+		clave foránea ( ` ID_Empleado ` )
+         hace referencia a ` swd` . ` empleados` ( ` ID ` ) _
+        al eliminar ninguna acción
+        en  cascada de actualización ;
+-- ------------------------------------------------ -------------------------              
+	ALTERAR  TABLA  ` swd` . _ ` sueldos `
+    agregue el índice ` Puestos_Sueldos ` ( ` ID_Puesto `  ASC ) visible;
+    ;
+    ALTERAR  TABLA  ` swd` . _ ` sueldos `
+    añadir restricción  ` Puestos_Sueldos` _
+		clave foránea ( ` ID_Puesto` )
+         hace referencia a ` swd` . ` Puesto ` ( ` DNI ` )
+        al eliminar ninguna acción
+        en  cascada de actualización ;
